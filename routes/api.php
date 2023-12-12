@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\HelperController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::resource('usb-devices', App\Http\Controllers\API\UsbDeviceAPIController::class);
+
+Route::post('mac-address', [HelperController::class, 'mac']);
