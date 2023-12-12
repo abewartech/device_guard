@@ -19,5 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::resource('usb-devices', App\Http\Controllers\API\UsbDeviceAPIController::class)
-    ->except(['create', 'edit']);
+Route::resource('usb-devices', App\Http\Controllers\API\UsbDeviceAPIController::class);

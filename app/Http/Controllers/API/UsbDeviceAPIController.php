@@ -45,9 +45,42 @@ class UsbDeviceAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $usbDevice = $this->usbDeviceRepository->create($input);
+        // Assuming the USB devices are in an array named 'usbDevices' in the input
+        if (is_array($input)) {
+            foreach ($input as $usbDeviceInfo) {
+                // Check if required keys exist in the USB device info
+                if (
+                    isset($usbDeviceInfo['busNumber']) &&
+                    isset($usbDeviceInfo['deviceAddress']) &&
+                    isset($usbDeviceInfo['deviceDescriptor']['idVendor']) &&
+                    isset($usbDeviceInfo['deviceDescriptor']['idProduct'])
+                ) {
+                    // Create a new UsbDevice model instance and save it to the database
+                    $usbDevice = UsbDevice::updateOrCreate([
+                        'productId' => $usbDeviceInfo['deviceDescriptor']['idProduct']
+                    ], [
+                        'busNumber' => $usbDeviceInfo['busNumber'],
+                        'deviceAddress' => $usbDeviceInfo['deviceAddress'],
+                        'vendorId' => $usbDeviceInfo['deviceDescriptor']['idVendor'],
+                    ]);
+                }
+            }
 
-        return $this->sendResponse($usbDevice->toArray(), 'Usb Device saved successfully');
+            foreach ($input as $key => $value) {
+
+
+                if (isset($value['mac'])) {
+                    $usbDevice = UsbDevice::updateOrCreate([
+                        'macAddress' => $value['mac']
+                    ]);
+                }
+            }
+
+            return $this->sendResponse([], 'Usb Devices saved successfully');
+        } else {
+
+            return $this->sendResponse([], 'Usb Devices saved successfully');
+        }
     }
 
     /**
