@@ -23,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('usb-devices', App\Http\Controllers\API\UsbDeviceAPIController::class);
 
 Route::post('mac-address', [HelperController::class, 'mac']);
+
+Route::post('mac-validation', [HelperController::class, 'mac_validation']);
