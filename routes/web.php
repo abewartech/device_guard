@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('admin');
 });
+
+Route::resource('usb-devices', App\Http\Controllers\UsbDeviceController::class);

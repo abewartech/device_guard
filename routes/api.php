@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::resource('usb-devices', App\Http\Controllers\API\UsbDeviceAPIController::class)
+    ->except(['create', 'edit']);

@@ -1,0 +1,1 @@
+php artisan infyom:api_scaffold UsbDevice --skip=views,menu,tests --fromTable --table=usb_devices
